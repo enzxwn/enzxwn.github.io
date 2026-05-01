@@ -1,0 +1,913 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Enz — Discord Community Manager & Developer</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --teal: #006564;
+    --teal-light: #00857a;
+    --teal-glow: #4ecdc4;
+    --gold: #c9a96e;
+    --dark: #070d0d;
+    --dark-card: #0d1a1a;
+    --dark-border: #162525;
+    --white: #f0f4f4;
+    --muted: #8aa8a8;
+    --font-display: 'Cormorant Garamond', serif;
+    --font-ui: 'Outfit', sans-serif;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--dark);
+    color: var(--white);
+    font-family: var(--font-ui);
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.4;
+  }
+
+  nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.25rem 4rem;
+    background: rgba(7, 13, 13, 0.85);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--dark-border);
+  }
+
+  .nav-logo {
+    font-family: var(--font-display);
+    font-size: 1.4rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    color: var(--white);
+  }
+
+  .nav-logo span { color: var(--teal-glow); }
+
+  .nav-links {
+    display: flex;
+    gap: 2.5rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    transition: color 0.3s;
+  }
+
+  .nav-links a:hover { color: var(--teal-glow); }
+
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 8rem 4rem 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 60% 50% at 80% 50%, rgba(0,101,100,0.18) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 40% at 20% 80%, rgba(0,133,122,0.08) 0%, transparent 60%);
+  }
+
+  .hero-tagline {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--teal-glow);
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.2s forwards;
+  }
+
+  .hero-name {
+    font-family: var(--font-display);
+    font-size: clamp(4rem, 10vw, 8rem);
+    font-weight: 300;
+    line-height: 0.95;
+    letter-spacing: -0.02em;
+    margin-bottom: 2rem;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.4s forwards;
+  }
+
+  .hero-name em {
+    font-style: italic;
+    color: var(--teal-glow);
+  }
+
+  .hero-desc {
+    max-width: 520px;
+    font-size: 1rem;
+    line-height: 1.7;
+    color: var(--muted);
+    margin-bottom: 3rem;
+    font-weight: 300;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.6s forwards;
+  }
+
+  .hero-stats {
+    display: flex;
+    gap: 3rem;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.8s forwards;
+  }
+
+  .stat-number {
+    font-family: var(--font-display);
+    font-size: 2.5rem;
+    font-weight: 600;
+    color: var(--white);
+    line-height: 1;
+  }
+  .stat-label {
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-top: 0.3rem;
+  }
+
+  .hero-cta {
+    margin-top: 3rem;
+    display: flex;
+    gap: 1rem;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 1s forwards;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.85rem 2rem;
+    font-family: var(--font-ui);
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .btn-primary {
+    background: var(--teal);
+    color: var(--white);
+  }
+  .btn-primary:hover {
+    background: var(--teal-light);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0,101,100,0.4);
+  }
+
+  .btn-ghost {
+    background: transparent;
+    color: var(--muted);
+    border: 1px solid var(--dark-border);
+  }
+  .btn-ghost:hover {
+    border-color: var(--teal-glow);
+    color: var(--teal-glow);
+    transform: translateY(-2px);
+  }
+
+  .hero-bird {
+    position: absolute;
+    right: 6%;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 340px;
+    opacity: 0.06;
+    animation: floatBird 6s ease-in-out infinite;
+  }
+
+  @keyframes floatBird {
+    0%, 100% { transform: translateY(-50%) rotate(-2deg); }
+    50% { transform: translateY(-54%) rotate(2deg); }
+  }
+
+  section {
+    padding: 7rem 4rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  .section-label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--teal-glow);
+    margin-bottom: 1rem;
+  }
+
+  .section-title {
+    font-family: var(--font-display);
+    font-size: clamp(2.2rem, 5vw, 3.8rem);
+    font-weight: 300;
+    line-height: 1.1;
+    margin-bottom: 4rem;
+  }
+
+  .section-title em {
+    font-style: italic;
+    color: var(--teal-glow);
+  }
+
+  .divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--dark-border), transparent);
+    margin: 0 4rem;
+  }
+
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: start;
+  }
+
+  .about-text p {
+    font-size: 1rem;
+    line-height: 1.85;
+    color: var(--muted);
+    margin-bottom: 1.5rem;
+    font-weight: 300;
+  }
+
+  .about-text p strong {
+    color: var(--white);
+    font-weight: 500;
+  }
+
+  .interests-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
+  }
+
+  .interest-tag {
+    padding: 0.6rem 1rem;
+    border: 1px solid var(--dark-border);
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    transition: all 0.3s;
+  }
+
+  .interest-tag:hover {
+    border-color: var(--teal);
+    color: var(--teal-glow);
+    background: rgba(0,101,100,0.05);
+  }
+
+  #experience { background: var(--dark-card); }
+
+  .timeline {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    max-width: 900px;
+  }
+
+  .timeline-item {
+    display: grid;
+    grid-template-columns: 180px 1fr;
+    gap: 3rem;
+    padding: 2.5rem 0;
+    border-bottom: 1px solid var(--dark-border);
+    position: relative;
+    transition: all 0.3s;
+  }
+
+  .timeline-item:last-child { border-bottom: none; }
+
+  .timeline-item:hover .tl-title { color: var(--teal-glow); }
+
+  .tl-date {
+    font-size: 0.72rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    padding-top: 0.3rem;
+    font-weight: 400;
+  }
+
+  .tl-company {
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--teal-glow);
+    margin-bottom: 0.4rem;
+    font-weight: 600;
+  }
+
+  .tl-title {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    font-weight: 400;
+    margin-bottom: 0.75rem;
+    transition: color 0.3s;
+  }
+
+  .tl-desc {
+    font-size: 0.88rem;
+    line-height: 1.75;
+    color: var(--muted);
+    font-weight: 300;
+  }
+
+  .tl-badge {
+    display: inline-block;
+    margin-top: 1rem;
+    padding: 0.3rem 0.75rem;
+    background: rgba(0,101,100,0.15);
+    border: 1px solid rgba(0,101,100,0.3);
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--teal-glow);
+    margin-right: 0.5rem;
+  }
+
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+
+  .project-card {
+    background: var(--dark-card);
+    border: 1px solid var(--dark-border);
+    padding: 2.5rem;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.4s ease;
+    cursor: default;
+  }
+
+  .project-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(0,101,100,0.08) 0%, transparent 60%);
+    opacity: 0;
+    transition: opacity 0.4s;
+  }
+
+  .project-card:hover::before { opacity: 1; }
+
+  .project-card:hover {
+    border-color: rgba(0,133,122,0.4);
+    transform: translateY(-4px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.3), 0 0 0 1px rgba(0,133,122,0.1);
+  }
+
+  .project-icon {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .project-name {
+    font-family: var(--font-display);
+    font-size: 1.4rem;
+    font-weight: 400;
+    margin-bottom: 0.75rem;
+  }
+
+  .project-desc {
+    font-size: 0.85rem;
+    line-height: 1.7;
+    color: var(--muted);
+    font-weight: 300;
+    margin-bottom: 1.5rem;
+  }
+
+  .project-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .project-tag {
+    font-size: 0.65rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--teal-glow);
+    border: 1px solid rgba(78,205,196,0.2);
+    padding: 0.2rem 0.6rem;
+  }
+
+  .project-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    margin-top: 1.25rem;
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--teal-glow);
+    text-decoration: none;
+    font-weight: 500;
+    transition: gap 0.3s;
+  }
+
+  .project-link:hover { gap: 0.7rem; }
+
+  #skills { background: var(--dark-card); }
+
+  .skills-columns {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 3rem;
+  }
+
+  .skill-group-title {
+    font-size: 0.65rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--teal-glow);
+    margin-bottom: 1.25rem;
+    font-weight: 700;
+  }
+
+  .skill-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .skill-list li {
+    font-size: 0.9rem;
+    color: var(--muted);
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-weight: 300;
+    transition: color 0.3s;
+  }
+
+  .skill-list li:hover { color: var(--white); }
+
+  .skill-list li::before {
+    content: '';
+    width: 4px;
+    height: 4px;
+    background: var(--teal);
+    flex-shrink: 0;
+    transition: background 0.3s;
+  }
+
+  .skill-list li:hover::before { background: var(--teal-glow); }
+
+  .screenshots-label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--teal-glow);
+    margin-bottom: 1rem;
+  }
+
+  .screenshots-title {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    font-weight: 300;
+    margin-bottom: 3rem;
+  }
+
+  .screenshots-scroll {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+  }
+
+  .ss-card {
+    border: 1px solid var(--dark-border);
+    overflow: hidden;
+    position: relative;
+    transition: all 0.4s;
+  }
+
+  .ss-card:hover {
+    border-color: rgba(0,133,122,0.4);
+    transform: scale(1.02);
+  }
+
+  .ss-card img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    display: block;
+    filter: brightness(0.85);
+    transition: filter 0.4s;
+  }
+
+  .ss-card:hover img { filter: brightness(1); }
+
+  .ss-caption {
+    padding: 0.75rem 1rem;
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    background: var(--dark-card);
+    border-top: 1px solid var(--dark-border);
+  }
+
+  footer {
+    padding: 4rem;
+    border-top: 1px solid var(--dark-border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .footer-name {
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    font-weight: 400;
+  }
+
+  .footer-discord {
+    font-size: 0.8rem;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+  }
+
+  .footer-discord span { color: var(--teal-glow); }
+
+  .footer-copy {
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    color: var(--muted);
+    text-transform: uppercase;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .teal-line {
+    display: inline-block;
+    width: 40px;
+    height: 2px;
+    background: var(--teal-glow);
+    margin-right: 1rem;
+    vertical-align: middle;
+  }
+
+  @media (max-width: 900px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    section { padding: 5rem 1.5rem; }
+    .hero { padding: 7rem 1.5rem 3rem; }
+    .hero-bird { display: none; }
+    .hero-stats { gap: 2rem; flex-wrap: wrap; }
+    .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+    .projects-grid { grid-template-columns: 1fr; }
+    .skills-columns { grid-template-columns: 1fr 1fr; gap: 2rem; }
+    .timeline-item { grid-template-columns: 1fr; gap: 0.5rem; }
+    .screenshots-scroll { grid-template-columns: 1fr; }
+    footer { flex-direction: column; gap: 1rem; text-align: center; }
+    .divider { margin: 0 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">Enz<span>xwn</span></div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#work">Work</a></li>
+  </ul>
+</nav>
+
+<section class="hero">
+  <div class="hero-bg"></div>
+  
+  <svg class="hero-bird" viewBox="0 0 200 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M10 60 Q60 20 120 40 Q160 55 190 30 Q170 70 130 65 Q90 60 50 80 Q30 88 10 60Z" fill="white"/>
+    <path d="M60 50 Q90 30 130 45 Q110 58 80 60Z" fill="white" opacity="0.6"/>
+  </svg>
+
+  <div class="hero-tagline"><span class="teal-line"></span>Discord Community Manager & Developer · Nepal</div>
+  <h1 class="hero-name">Enz<em>xwn</em><br>Anju Magar</h1>
+  <p class="hero-desc">
+    15-year-old community builder, bot developer, and aviation enthusiast from Nepal. 
+    Growing communities of 36,000+ members, building custom Discord bots, 
+    and architecting digital spaces.
+  </p>
+
+  <div class="hero-stats">
+    <div class="stat-item">
+      <div class="stat-number">36K+</div>
+      <div class="stat-label">Community Members</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-number">4+</div>
+      <div class="stat-label">Servers Built</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-number">3</div>
+      <div class="stat-label">Bots Developed</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-number">2+</div>
+      <div class="stat-label">Years Experience</div>
+    </div>
+  </div>
+
+  <div class="hero-cta">
+    <a href="#experience" class="btn btn-primary">↓ View My Work</a>
+    <a href="https://discord.gg/ladygaga" class="btn btn-ghost" target="_blank">discord.gg/ladygaga</a>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section id="about">
+  <div class="section-label"><span class="teal-line"></span>About Me</div>
+  <h2 class="section-title">Building what<br>others <em>overlook</em></h2>
+
+  <div class="about-grid">
+    <div class="about-text reveal">
+      <p>
+        I'm <strong>Enz</strong>, a 15-year-old from Nepal with a serious passion for community management, 
+        bot development, and digital infrastructure. While most people my age focus on school, 
+        I've been building and scaling Discord communities.
+      </p>
+      <p>
+        I started with small servers and worked my way up to <strong>Chairman of Cathay Pacific PTFS</strong> — 
+        a 2,000+ member aviation roleplay community. I now serve as <strong>Chief Financial Officer</strong> 
+        while moderating one of the largest fan Discord servers.
+      </p>
+      <p>
+        I believe great communities are <strong>living systems</strong> with 
+        architecture, economy, and culture.
+      </p>
+    </div>
+
+    <div class="reveal" style="transition-delay: 0.15s">
+      <div style="margin-bottom: 2rem;">
+        <div class="section-label" style="margin-bottom: 1rem;">Interests</div>
+        <div class="interests-grid">
+          <div class="interest-tag">✈ Aviation</div>
+          <div class="interest-tag">⚙ UX / UI Design</div>
+          <div class="interest-tag">🤖 Bot Development</div>
+          <div class="interest-tag">🏢 Strategy</div>
+          <div class="interest-tag">🛡 Defence Tech</div>
+          <div class="interest-tag">🎵 Pop Music</div>
+          <div class="interest-tag">🌐 Web Dev</div>
+          <div class="interest-tag">🗳 Politics</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section id="experience">
+  <div class="section-label"><span class="teal-line"></span>Experience</div>
+  <h2 class="section-title">Where I've<br><em>worked</em></h2>
+
+  <div class="timeline">
+    <div class="timeline-item reveal">
+      <div class="tl-date">2023 – Present</div>
+      <div>
+        <div class="tl-company">discord.gg/ladygaga</div>
+        <div class="tl-title">Moderator</div>
+        <div class="tl-desc">
+          Active moderator at the world's largest official Lady Gaga fan Discord server with 36,000+ members. 
+        </div>
+        <span class="tl-badge">36,000+ Members</span>
+      </div>
+    </div>
+    <div class="timeline-item reveal">
+      <div class="tl-date">2023 – Present</div>
+      <div>
+        <div class="tl-company">Cathay Pacific PTFS</div>
+        <div class="tl-title">Chief Financial Officer</div>
+        <div class="tl-desc">
+          Oversee financial systems and economy bot management for the 2,000+ member server. 
+        </div>
+        <span class="tl-badge">2,000+ Members</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section id="projects">
+  <div class="section-label"><span class="teal-line"></span>Projects</div>
+  <h2 class="section-title">Things I've<br><em>built</em></h2>
+
+  <div class="projects-grid">
+    <div class="project-card reveal">
+      <div class="project-icon">✈️</div>
+      <div class="project-name">Cathay Pacific PTFS</div>
+      <div class="project-desc">
+        Designed channel architecture, role hierarchies, and membership economy.
+      </div>
+      <div class="project-tags">
+        <span class="project-tag">Server Design</span>
+        <span class="project-tag">Aviation</span>
+      </div>
+    </div>
+    <div class="project-card reveal" style="transition-delay: 0.1s">
+      <div class="project-icon">🤖</div>
+      <div class="project-name">Project Embler</div>
+      <div class="project-desc">
+        Solo-developed a next-generation Discord bot featuring anti-nuke and anti-raid protection.
+      </div>
+      <div class="project-tags">
+        <span class="project-tag">Bot Dev</span>
+        <span class="project-tag">Anti-Nuke</span>
+      </div>
+    </div>
+    <div class="project-card reveal" style="transition-delay: 0.2s">
+      <div class="project-icon">🌐</div>
+      <div class="project-name">CX PTFS Website</div>
+      <div class="project-desc">
+        Currently building an official website for Cathay Pacific PTFS with a small team.
+      </div>
+      <div class="project-tags">
+        <span class="project-tag">Web Dev</span>
+        <span class="project-tag">Python</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section id="skills">
+  <div class="section-label"><span class="teal-line"></span>Skills</div>
+  <h2 class="section-title">What I<br><em>bring</em></h2>
+
+  <div class="skills-columns">
+    <div class="reveal">
+      <div class="skill-group-title">Bot Management</div>
+      <ul class="skill-list">
+        <li>Wick (Anti-Raid)</li>
+        <li>Dyno</li>
+        <li>MEE6</li>
+        <li>Carl-bot</li>
+      </ul>
+    </div>
+    <div class="reveal" style="transition-delay: 0.1s">
+      <div class="skill-group-title">Bot Development</div>
+      <ul class="skill-list">
+        <li>Custom Architecture</li>
+        <li>Ticket Systems</li>
+        <li>Economy Systems</li>
+        <li>Welcome Flows</li>
+      </ul>
+    </div>
+    <div class="reveal" style="transition-delay: 0.2s">
+      <div class="skill-group-title">Server Management</div>
+      <ul class="skill-list">
+        <li>Channel Architecture</li>
+        <li>Role Hierarchies</li>
+        <li>Webhook Integration</li>
+        <li>Staff Leadership</li>
+      </ul>
+    </div>
+    <div class="reveal" style="transition-delay: 0.3s">
+      <div class="skill-group-title">Other</div>
+      <ul class="skill-list">
+        <li>Web Development</li>
+        <li>UX / UI Design</li>
+        <li>Branding</li>
+        <li>Team Management</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section id="work">
+  <div class="screenshots-label"><span class="teal-line"></span>Proof of Work</div>
+  <h2 class="screenshots-title">Real systems,<br>real <em>communities</em></h2>
+
+  <div class="screenshots-scroll">
+    <div class="ss-card reveal">
+      <img src="images/1353.jpg" alt="Server structure">
+      <div class="ss-caption">CX PTFS — Server Architecture</div>
+    </div>
+    <div class="ss-card reveal" style="transition-delay: 0.1s">
+      <img src="images/1343.jpg" alt="Full layout">
+      <div class="ss-caption">CX PTFS — Full Channel Layout</div>
+    </div>
+    <div class="ss-card reveal" style="transition-delay: 0.2s">
+      <img src="images/1341.jpg" alt="Bot info">
+      <div class="ss-caption">Project Embler — Custom Bot</div>
+    </div>
+    <div class="ss-card reveal" style="transition-delay: 0.05s">
+      <img src="images/1342.jpg" alt="Bot server">
+      <div class="ss-caption">Project Embler — Bot Server</div>
+    </div>
+    <div class="ss-card reveal" style="transition-delay: 0.15s">
+      <img src="images/1345.jpg" alt="Ticket system">
+      <div class="ss-caption">Nepal Airlines PTFS — Ticket System</div>
+    </div>
+    <div class="ss-card reveal" style="transition-delay: 0.25s">
+      <img src="images/1344.jpg" alt="Claim flow">
+      <div class="ss-caption">Ticket System — Staff Claim Flow</div>
+    </div>
+    <div class="ss-card reveal">
+      <img src="images/1354.jpg" alt="Membership bot">
+      <div class="ss-caption">Cathay Core Shield — Membership</div>
+    </div>
+    <div class="ss-card reveal" style="transition-delay: 0.1s">
+      <img src="images/1339.jpg" alt="Bot stats">
+      <div class="ss-caption">CX PTFS — Bot Stats</div>
+    </div>
+    <div class="ss-card reveal" style="transition-delay: 0.2s">
+      <img src="images/1338.jpg" alt="Cafe server">
+      <div class="ss-caption">Monkey's Café — Server Design</div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div>
+    <div class="footer-name">Enzxwn · Anjan Chhetri</div>
+    <div class="footer-discord" style="margin-top: 0.4rem;">
+      Discord: <span>enzxwn</span> · Nepal 🇳🇵
+    </div>
+  </div>
+  <div class="footer-copy">Available for contracts & partnerships</div>
+</footer>
+
+<script>
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.08 });
+  reveals.forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
+
