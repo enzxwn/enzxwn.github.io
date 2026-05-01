@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Enz — Discord Community Manager & Developer</title>
+<title>Enzxwn — Discord Community Manager & Developer</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -31,6 +31,7 @@
     overflow-x: hidden;
   }
 
+  /* ─── NOISE OVERLAY ─── */
   body::before {
     content: '';
     position: fixed;
@@ -41,6 +42,7 @@
     opacity: 0.4;
   }
 
+  /* ─── NAV ─── */
   nav {
     position: fixed;
     top: 0;
@@ -84,6 +86,7 @@
 
   .nav-links a:hover { color: var(--teal-glow); }
 
+  /* ─── HERO ─── */
   .hero {
     min-height: 100vh;
     display: flex;
@@ -147,6 +150,7 @@
     animation: fadeUp 0.8s ease 0.8s forwards;
   }
 
+  .stat-item {}
   .stat-number {
     font-family: var(--font-display);
     font-size: 2.5rem;
@@ -207,6 +211,7 @@
     transform: translateY(-2px);
   }
 
+  /* Bird mark SVG in hero */
   .hero-bird {
     position: absolute;
     right: 6%;
@@ -222,6 +227,7 @@
     50% { transform: translateY(-54%) rotate(2deg); }
   }
 
+  /* ─── SECTION SHARED ─── */
   section {
     padding: 7rem 4rem;
     position: relative;
@@ -250,12 +256,14 @@
     color: var(--teal-glow);
   }
 
+  /* ─── DIVIDER ─── */
   .divider {
     height: 1px;
     background: linear-gradient(90deg, transparent, var(--dark-border), transparent);
     margin: 0 4rem;
   }
 
+  /* ─── ABOUT ─── */
   .about-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -298,6 +306,7 @@
     background: rgba(0,101,100,0.05);
   }
 
+  /* ─── EXPERIENCE ─── */
   #experience { background: var(--dark-card); }
 
   .timeline {
@@ -367,6 +376,7 @@
     margin-right: 0.5rem;
   }
 
+  /* ─── PROJECTS ─── */
   .projects-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -451,6 +461,7 @@
 
   .project-link:hover { gap: 0.7rem; }
 
+  /* ─── SKILLS ─── */
   #skills { background: var(--dark-card); }
 
   .skills-columns {
@@ -498,6 +509,7 @@
 
   .skill-list li:hover::before { background: var(--teal-glow); }
 
+  /* ─── SCREENSHOTS ─── */
   .screenshots-label {
     font-size: 0.7rem;
     font-weight: 700;
@@ -553,6 +565,7 @@
     border-top: 1px solid var(--dark-border);
   }
 
+  /* ─── FOOTER ─── */
   footer {
     padding: 4rem;
     border-top: 1px solid var(--dark-border);
@@ -582,6 +595,7 @@
     text-transform: uppercase;
   }
 
+  /* ─── ANIMATIONS ─── */
   @keyframes fadeUp {
     from { opacity: 0; transform: translateY(20px); }
     to { opacity: 1; transform: translateY(0); }
@@ -598,6 +612,7 @@
     transform: translateY(0);
   }
 
+  /* ─── TEAL LINE ACCENT ─── */
   .teal-line {
     display: inline-block;
     width: 40px;
@@ -607,6 +622,7 @@
     vertical-align: middle;
   }
 
+  /* ─── RESPONSIVE ─── */
   @media (max-width: 900px) {
     nav { padding: 1rem 1.5rem; }
     .nav-links { display: none; }
@@ -626,6 +642,7 @@
 </head>
 <body>
 
+<!-- NAV -->
 <nav>
   <div class="nav-logo">Enz<span>xwn</span></div>
   <ul class="nav-links">
@@ -637,9 +654,11 @@
   </ul>
 </nav>
 
+<!-- HERO -->
 <section class="hero">
   <div class="hero-bg"></div>
   
+  <!-- Cathay Bird SVG -->
   <svg class="hero-bird" viewBox="0 0 200 120" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path d="M10 60 Q60 20 120 40 Q160 55 190 30 Q170 70 130 65 Q90 60 50 80 Q30 88 10 60Z" fill="white"/>
     <path d="M60 50 Q90 30 130 45 Q110 58 80 60Z" fill="white" opacity="0.6"/>
@@ -650,7 +669,7 @@
   <p class="hero-desc">
     15-year-old community builder, bot developer, and aviation enthusiast from Nepal. 
     Growing communities of 36,000+ members, building custom Discord bots, 
-    and architecting digital spaces.
+    and architecting digital spaces that actually work.
   </p>
 
   <div class="hero-stats">
@@ -680,6 +699,7 @@
 
 <div class="divider"></div>
 
+<!-- ABOUT -->
 <section id="about">
   <div class="section-label"><span class="teal-line"></span>About Me</div>
   <h2 class="section-title">Building what<br>others <em>overlook</em></h2>
@@ -689,16 +709,18 @@
       <p>
         I'm <strong>Enz</strong>, a 15-year-old from Nepal with a serious passion for community management, 
         bot development, and digital infrastructure. While most people my age focus on school, 
-        I've been building and scaling Discord communities.
+        I've been building and scaling Discord communities, writing bot code, and managing 
+        multi-thousand member servers.
       </p>
       <p>
         I started with small servers and worked my way up to <strong>Chairman of Cathay Pacific PTFS</strong> — 
-        a 2,000+ member aviation roleplay community. I now serve as <strong>Chief Financial Officer</strong> 
-        while moderating one of the largest fan Discord servers.
+        a 2,000+ member aviation roleplay community — before stepping down strategically to 
+        diversify my experience. I now serve as <strong>Chief Financial Officer</strong> while moderating 
+        one of the largest fan Discord servers on the platform.
       </p>
       <p>
-        I believe great communities are <strong>living systems</strong> with 
-        architecture, economy, and culture.
+        I believe great communities aren't just chat rooms — they're <strong>living systems</strong> with 
+        architecture, economy, support infrastructure, and culture. That's the standard I build to.
       </p>
     </div>
 
@@ -709,11 +731,19 @@
           <div class="interest-tag">✈ Aviation</div>
           <div class="interest-tag">⚙ UX / UI Design</div>
           <div class="interest-tag">🤖 Bot Development</div>
-          <div class="interest-tag">🏢 Strategy</div>
+          <div class="interest-tag">🏢 Company Strategy</div>
           <div class="interest-tag">🛡 Defence Tech</div>
           <div class="interest-tag">🎵 Pop Music</div>
-          <div class="interest-tag">🌐 Web Dev</div>
+          <div class="interest-tag">🌐 Web Development</div>
           <div class="interest-tag">🗳 Politics</div>
+        </div>
+      </div>
+      <div>
+        <div class="section-label" style="margin-bottom: 1rem;">Also</div>
+        <div style="font-size: 0.85rem; color: var(--muted); line-height: 1.8; font-weight: 300;">
+          Member of the <span style="color: var(--white);">Nepal Communist Party</span> — 
+          political planning committee for my constituency. 
+          Currently learning YouTube API integration to build a custom music bot.
         </div>
       </div>
     </div>
@@ -722,11 +752,13 @@
 
 <div class="divider"></div>
 
+<!-- EXPERIENCE -->
 <section id="experience">
   <div class="section-label"><span class="teal-line"></span>Experience</div>
   <h2 class="section-title">Where I've<br><em>worked</em></h2>
 
   <div class="timeline">
+
     <div class="timeline-item reveal">
       <div class="tl-date">2023 – Present</div>
       <div>
@@ -734,69 +766,187 @@
         <div class="tl-title">Moderator</div>
         <div class="tl-desc">
           Active moderator at the world's largest official Lady Gaga fan Discord server with 36,000+ members. 
+          Responsibilities include community moderation, conflict resolution, enforcement of server rules, 
+          and maintaining a healthy environment for tens of thousands of fans globally.
         </div>
         <span class="tl-badge">36,000+ Members</span>
+        <span class="tl-badge">Fan Server</span>
       </div>
     </div>
+
     <div class="timeline-item reveal">
       <div class="tl-date">2023 – Present</div>
       <div>
         <div class="tl-company">Cathay Pacific PTFS</div>
         <div class="tl-title">Chief Financial Officer</div>
         <div class="tl-desc">
-          Oversee financial systems and economy bot management for the 2,000+ member server. 
+          Currently serving as CFO of Cathay Pacific PTFS — an aviation roleplay community modelled after 
+          the real Cathay Pacific airline. Oversee financial systems, economy bot management, and 
+          strategic decisions for the 2,000+ member server. Previously served as Chairman and CEO 
+          before stepping down to diversify experience across more communities.
         </div>
         <span class="tl-badge">2,000+ Members</span>
+        <span class="tl-badge">Former Chairman</span>
+        <span class="tl-badge">Former CEO</span>
       </div>
     </div>
+
+    <div class="timeline-item reveal">
+      <div class="tl-date">2024</div>
+      <div>
+        <div class="tl-company">ProBot</div>
+        <div class="tl-title">Support Representative</div>
+        <div class="tl-desc">
+          Provided user support for ProBot, one of the most widely-used Discord bots. 
+          Handled user queries, troubleshot bot configuration issues, and assisted communities 
+          in setting up moderation and automation workflows.
+        </div>
+        <span class="tl-badge">Bot Support</span>
+      </div>
+    </div>
+
+    <div class="timeline-item reveal">
+      <div class="tl-date">2023 – 2024</div>
+      <div>
+        <div class="tl-company">Cruising Studios</div>
+        <div class="tl-title">Support Representative</div>
+        <div class="tl-desc">
+          Served as Support Representative for Cruising Studios, a Roblox-based aviation and 
+          gaming community. Handled player support tickets, resolved community conflicts, 
+          and maintained positive player relations across their Discord server.
+        </div>
+        <span class="tl-badge">Roblox</span>
+        <span class="tl-badge">Aviation</span>
+      </div>
+    </div>
+
+    <div class="timeline-item reveal">
+      <div class="tl-date">2023</div>
+      <div>
+        <div class="tl-company">SCA — Server Community Advertising</div>
+        <div class="tl-title">Staff</div>
+        <div class="tl-desc">
+          Worked at SCA, a Discord advertising and community growth service. Assisted with 
+          server promotions and community outreach before the service shut down.
+        </div>
+        <span class="tl-badge">Advertising</span>
+        <span class="tl-badge">Community Growth</span>
+      </div>
+    </div>
+
   </div>
 </section>
 
 <div class="divider"></div>
 
+<!-- PROJECTS -->
 <section id="projects">
   <div class="section-label"><span class="teal-line"></span>Projects</div>
   <h2 class="section-title">Things I've<br><em>built</em></h2>
 
   <div class="projects-grid">
+
     <div class="project-card reveal">
       <div class="project-icon">✈️</div>
       <div class="project-name">Cathay Pacific PTFS</div>
       <div class="project-desc">
-        Designed channel architecture, role hierarchies, and membership economy.
+        Built and scaled a full Cathay Pacific-branded Discord server from the ground up. 
+        Designed channel architecture, role hierarchies, membership economy, ticketing systems, 
+        and partnership programmes. Now at 2,000+ members.
       </div>
       <div class="project-tags">
         <span class="project-tag">Server Design</span>
+        <span class="project-tag">Community</span>
+        <span class="project-tag">Economy</span>
         <span class="project-tag">Aviation</span>
       </div>
     </div>
+
     <div class="project-card reveal" style="transition-delay: 0.1s">
       <div class="project-icon">🤖</div>
       <div class="project-name">Project Embler</div>
       <div class="project-desc">
-        Solo-developed a next-generation Discord bot featuring anti-nuke and anti-raid protection.
+        Solo-developed a next-generation Discord bot featuring anti-nuke and anti-raid 
+        protection, a custom ticketing system, economy system (work commands, balance, rewards), 
+        and a welcome system. Deployed across 4 servers with 41ms latency.
       </div>
       <div class="project-tags">
         <span class="project-tag">Bot Dev</span>
         <span class="project-tag">Anti-Nuke</span>
+        <span class="project-tag">Economy</span>
+        <span class="project-tag">Ticketing</span>
       </div>
     </div>
+
     <div class="project-card reveal" style="transition-delay: 0.2s">
       <div class="project-icon">🌐</div>
       <div class="project-name">CX PTFS Website</div>
       <div class="project-desc">
-        Currently building an official website for Cathay Pacific PTFS with a small team.
+        Currently building an official website for Cathay Pacific PTFS with a small team. 
+        Hosted at cathaypacificptfs.pythonanywhere.com — actively under development with 
+        a focus on matching the real airline's premium aesthetic.
       </div>
       <div class="project-tags">
         <span class="project-tag">Web Dev</span>
+        <span class="project-tag">UX/UI</span>
         <span class="project-tag">Python</span>
       </div>
+      <a href="https://cathaypacificptfs.pythonanywhere.com" class="project-link" target="_blank">
+        Visit Site →
+      </a>
     </div>
+
+    <div class="project-card reveal" style="transition-delay: 0.15s">
+      <div class="project-icon">🎟</div>
+      <div class="project-name">Ticketing System</div>
+      <div class="project-desc">
+        Built a full ticket management system for multiple Discord servers — including 
+        ticket creation, staff claiming, categorized close reasons, confirmation flows, 
+        and auto-deletion with countdowns. Deployed for Nepal Airlines PTFS and others.
+      </div>
+      <div class="project-tags">
+        <span class="project-tag">Bot Dev</span>
+        <span class="project-tag">Support</span>
+        <span class="project-tag">Automation</span>
+      </div>
+    </div>
+
+    <div class="project-card reveal" style="transition-delay: 0.2s">
+      <div class="project-icon">💎</div>
+      <div class="project-name">Cathay Membership Bot</div>
+      <div class="project-desc">
+        Designed and implemented a full loyalty membership programme bot (Cathay Core Shield) 
+        for CX PTFS — featuring membership tiers (Silver, Gold, Diamond), status points, 
+        automated welcome messages, and account management via DM.
+      </div>
+      <div class="project-tags">
+        <span class="project-tag">Bot Dev</span>
+        <span class="project-tag">Loyalty System</span>
+        <span class="project-tag">UX</span>
+      </div>
+    </div>
+
+    <div class="project-card reveal" style="transition-delay: 0.25s">
+      <div class="project-icon">🎵</div>
+      <div class="project-name">Music Bot (In Progress)</div>
+      <div class="project-desc">
+        Currently learning YouTube API integration to build a custom music bot from scratch. 
+        Aiming to give communities a native, feature-rich music experience without 
+        depending on third-party bots.
+      </div>
+      <div class="project-tags">
+        <span class="project-tag">In Progress</span>
+        <span class="project-tag">YouTube API</span>
+        <span class="project-tag">Bot Dev</span>
+      </div>
+    </div>
+
   </div>
 </section>
 
 <div class="divider"></div>
 
+<!-- SKILLS -->
 <section id="skills">
   <div class="section-label"><span class="teal-line"></span>Skills</div>
   <h2 class="section-title">What I<br><em>bring</em></h2>
@@ -809,15 +959,21 @@
         <li>Dyno</li>
         <li>MEE6</li>
         <li>Carl-bot</li>
+        <li>Statbot</li>
+        <li>Bloxlink</li>
+        <li>UnbelievaBoat</li>
       </ul>
     </div>
     <div class="reveal" style="transition-delay: 0.1s">
       <div class="skill-group-title">Bot Development</div>
       <ul class="skill-list">
-        <li>Custom Architecture</li>
+        <li>Custom Bot Architecture</li>
         <li>Ticket Systems</li>
         <li>Economy Systems</li>
         <li>Welcome Flows</li>
+        <li>Anti-Nuke / Anti-Raid</li>
+        <li>Embed Builders</li>
+        <li>YouTube API (learning)</li>
       </ul>
     </div>
     <div class="reveal" style="transition-delay: 0.2s">
@@ -826,7 +982,10 @@
         <li>Channel Architecture</li>
         <li>Role Hierarchies</li>
         <li>Webhook Integration</li>
-        <li>Staff Leadership</li>
+        <li>Partnership Management</li>
+        <li>Staff Team Leadership</li>
+        <li>Onboarding Flows</li>
+        <li>Community Moderation</li>
       </ul>
     </div>
     <div class="reveal" style="transition-delay: 0.3s">
@@ -834,8 +993,11 @@
       <ul class="skill-list">
         <li>Web Development</li>
         <li>UX / UI Design</li>
-        <li>Branding</li>
+        <li>Branding & Aesthetics</li>
+        <li>Community Strategy</li>
+        <li>Customer Support</li>
         <li>Team Management</li>
+        <li>Aviation Knowledge</li>
       </ul>
     </div>
   </div>
@@ -843,53 +1005,55 @@
 
 <div class="divider"></div>
 
+<!-- SCREENSHOTS -->
 <section id="work">
   <div class="screenshots-label"><span class="teal-line"></span>Proof of Work</div>
   <h2 class="screenshots-title">Real systems,<br>real <em>communities</em></h2>
 
   <div class="screenshots-scroll">
     <div class="ss-card reveal">
-      <img src="images/1353.jpg" alt="Server structure">
-      <div class="ss-caption">CX PTFS — Server Architecture</div>
+      <img src="/mnt/user-data/uploads/1353.jpg" alt="Cathay Pacific PTFS server structure" onerror="this.src=''; this.parentElement.style.display='none'">
+      <div class="ss-caption">CX PTFS — Server Architecture (2,049 Members)</div>
     </div>
     <div class="ss-card reveal" style="transition-delay: 0.1s">
-      <img src="images/1343.jpg" alt="Full layout">
+      <img src="/mnt/user-data/uploads/1343.jpg" alt="Cathay Pacific PTFS server" onerror="this.src=''; this.parentElement.style.display='none'">
       <div class="ss-caption">CX PTFS — Full Channel Layout</div>
     </div>
     <div class="ss-card reveal" style="transition-delay: 0.2s">
-      <img src="images/1341.jpg" alt="Bot info">
-      <div class="ss-caption">Project Embler — Custom Bot</div>
+      <img src="/mnt/user-data/uploads/1341.jpg" alt="Embler bot info" onerror="this.src=''; this.parentElement.style.display='none'">
+      <div class="ss-caption">Project Embler — Custom Bot (41ms Latency)</div>
     </div>
     <div class="ss-card reveal" style="transition-delay: 0.05s">
-      <img src="images/1342.jpg" alt="Bot server">
-      <div class="ss-caption">Project Embler — Bot Server</div>
+      <img src="/mnt/user-data/uploads/1342.jpg" alt="Project Embler server" onerror="this.src=''; this.parentElement.style.display='none'">
+      <div class="ss-caption">Project Embler — Bot Server Structure</div>
     </div>
     <div class="ss-card reveal" style="transition-delay: 0.15s">
-      <img src="images/1345.jpg" alt="Ticket system">
-      <div class="ss-caption">Nepal Airlines PTFS — Ticket System</div>
+      <img src="/mnt/user-data/uploads/1345.jpg" alt="Ticket system" onerror="this.src=''; this.parentElement.style.display='none'">
+      <div class="ss-caption">Nepal Airlines PTFS — Custom Ticket System</div>
     </div>
     <div class="ss-card reveal" style="transition-delay: 0.25s">
-      <img src="images/1344.jpg" alt="Claim flow">
-      <div class="ss-caption">Ticket System — Staff Claim Flow</div>
+      <img src="/mnt/user-data/uploads/1344.jpg" alt="Ticket claim system" onerror="this.src=''; this.parentElement.style.display='none'">
+      <div class="ss-caption">Ticket System — Staff Claim & Auto-Close Flow</div>
     </div>
     <div class="ss-card reveal">
-      <img src="images/1354.jpg" alt="Membership bot">
-      <div class="ss-caption">Cathay Core Shield — Membership</div>
+      <img src="/mnt/user-data/uploads/1354.jpg" alt="Cathay membership bot" onerror="this.src=''; this.parentElement.style.display='none'">
+      <div class="ss-caption">Cathay Core Shield — Membership Programme</div>
     </div>
     <div class="ss-card reveal" style="transition-delay: 0.1s">
-      <img src="images/1339.jpg" alt="Bot stats">
-      <div class="ss-caption">CX PTFS — Bot Stats</div>
+      <img src="/mnt/user-data/uploads/1339.jpg" alt="Bot commands and stats" onerror="this.src=''; this.parentElement.style.display='none'">
+      <div class="ss-caption">CX PTFS — Bot Stats & Member Tracking</div>
     </div>
     <div class="ss-card reveal" style="transition-delay: 0.2s">
-      <img src="images/1338.jpg" alt="Cafe server">
-      <div class="ss-caption">Monkey's Café — Server Design</div>
+      <img src="/mnt/user-data/uploads/1338.jpg" alt="Monkey's Cafe server" onerror="this.src=''; this.parentElement.style.display='none'">
+      <div class="ss-caption">Monkey's Café — Server Design Sample</div>
     </div>
   </div>
 </section>
 
+<!-- FOOTER -->
 <footer>
   <div>
-    <div class="footer-name">Enzxwn · Anjan Chhetri</div>
+    <div class="footer-name">Enzxwn · Anz Magar</div>
     <div class="footer-discord" style="margin-top: 0.4rem;">
       Discord: <span>enzxwn</span> · Nepal 🇳🇵
     </div>
@@ -898,6 +1062,7 @@
 </footer>
 
 <script>
+  // Scroll reveal
   const reveals = document.querySelectorAll('.reveal');
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
@@ -910,4 +1075,3 @@
 </script>
 </body>
 </html>
-
